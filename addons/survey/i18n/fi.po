@@ -5,13 +5,12 @@
 # Translators:
 # Eino Mäkitalo <eino.makitalo@netitbe.fi>, 2019
 # Timo Koukkari <ti.ko@netikka.fi>, 2019
-# Johanna Valkonen <johanna.valkonen@sv-oy.fi>, 2019
+# Johanna Valkonen <johanna@vividi.fi>, 2019
 # Simo Suurla <simo@suurla.fi>, 2019
 # Miku Laitinen <miku.laitinen@gmail.com>, 2019
 # Jussi Lehto <jussi@gulfeo.com>, 2019
 # Mikko Salmela <salmemik@gmail.com>, 2019
 # Iipponen <erno@web-veistamo.fi>, 2019
-# Veikko Väätäjä <veikko.vaataja@gmail.com>, 2019
 # Topi Aura <topi@aurat.fi>, 2019
 # Pekko Tuomisto <pekko.tuomisto@web-veistamo.fi>, 2019
 # Sari Mäyrä <sari.mayra@sv-oy.fi>, 2019
@@ -24,6 +23,7 @@
 # Tuomas Lyyra <tuomas.lyyra@legenda.fi>, 2019
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2020
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2020
+# Veikko Väätäjä <veikko.vaataja@gmail.com>, 2021
 # 
 msgid ""
 msgstr ""
@@ -31,7 +31,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-05 12:34+0000\n"
 "PO-Revision-Date: 2019-08-26 09:14+0000\n"
-"Last-Translator: Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2020\n"
+"Last-Translator: Veikko Väätäjä <veikko.vaataja@gmail.com>, 2021\n"
 "Language-Team: Finnish (https://www.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -491,7 +491,7 @@ msgstr "Lisää väliotsikko/osio"
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.survey_invite_view_form
 msgid "Add existing contacts..."
-msgstr ""
+msgstr "Lisää olemassaolevia yhteystietoja..."
 
 #. module: survey
 #: model:ir.model.fields,field_description:survey.field_survey_invite__emails
@@ -679,7 +679,7 @@ msgstr ""
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.survey_survey_view_search
 msgid "Certification"
-msgstr ""
+msgstr "Sertifikaatti"
 
 #. module: survey
 #: model:ir.model.fields,field_description:survey.field_survey_survey__certification_badge_id
@@ -710,7 +710,7 @@ msgstr ""
 #: model:ir.actions.report,name:survey.certification_report
 #: model:ir.model.fields.selection,name:survey.selection__gamification_challenge__category__certification
 msgid "Certifications"
-msgstr ""
+msgstr "Sertifioinnit"
 
 #. module: survey
 #: model:ir.model.fields,field_description:survey.field_res_partner__certifications_count
@@ -1178,7 +1178,7 @@ msgstr ""
 #. module: survey
 #: model:ir.model,name:survey.model_gamification_challenge
 msgid "Gamification Challenge"
-msgstr ""
+msgstr "Pelillistämishaaste"
 
 #. module: survey
 #: model:survey.question,question:survey.survey_feedback_p1
@@ -1344,7 +1344,7 @@ msgstr "Jos haluat, voit "
 #. module: survey
 #: model:survey.label,value:survey.survey_feedback_p2_q1_sug6
 msgid "Impractical"
-msgstr ""
+msgstr "Epäkäytännöllinen"
 
 #. module: survey
 #: model:ir.model.fields.selection,name:survey.selection__survey_survey__state__open

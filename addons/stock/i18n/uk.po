@@ -81,7 +81,7 @@ msgstr ""
 " * Готово: Переміщення готове до обробки.\n"
 "(a) Політика доставки \"Якнайшвидше\": принаймні один товар має бути заброньований.\n"
 "(b) Політика доставки \"Коли всі товари готові\": усі товари мають бути заброньовані.\n"
-" * Готово: Переміщення оброблено.\n"
+" * Виконано: Переміщення оброблено.\n"
 " * Скасовано: Переміщення скасоване."
 
 #. module: stock
@@ -893,6 +893,12 @@ msgstr "В наявності"
 #: model_terms:ir.ui.view,arch_db:stock.stock_product_search_form_view
 msgid "Available Products"
 msgstr "Наявні товари"
+
+#. module: stock
+#: code:addons/stock/models/product.py:581
+#, python-format
+msgid "Available quantity should be set to zero before changing type"
+msgstr "Перед зміною типу необхідно встановити на нуль доступну кількість"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move__backorder_id
@@ -4319,6 +4325,12 @@ msgid "Please add some items to move."
 msgstr "Додайте кілька елементів для переміщення."
 
 #. module: stock
+#: code:addons/stock/models/stock_quant.py:92
+#, python-format
+msgid "Please check the following serial number (name, id): "
+msgstr "Перевірте наступний серійний номер (name, id): "
+
+#. module: stock
 #: code:addons/stock/wizard/stock_picking_return.py:0
 #, python-format
 msgid "Please specify at least one non-zero quantity."
@@ -4896,7 +4908,7 @@ msgstr "Оцінити комплектування пізніше"
 #: model_terms:ir.ui.view,arch_db:stock.view_move_search
 #: model_terms:ir.ui.view,arch_db:stock.view_picking_internal_search
 msgid "Ready"
-msgstr "Готово"
+msgstr "Підготовлено"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_move__product_qty
@@ -6478,6 +6490,20 @@ msgstr ""
 " застосовані (що створить дубльовані операції)"
 
 #. module: stock
+#: code:addons/stock/models/product.py:0
+#, python-format
+msgid ""
+"This product has been used in at least one inventory movement. It is not "
+"advised to change the Product Type since it can lead to inconsistencies. A "
+"better solution could be to archive the product and create a new one "
+"instead."
+msgstr ""
+"Цей товар використовувався принаймні в одному складському переміщенні. Не "
+"рекомендується змінювати тип товару, оскільки це може призвести до "
+"невідповідностей. Кращим рішенням може бути архівування товару та створення "
+"замість нього нового."
+
+#. module: stock
 #: model:ir.model.fields,help:stock.field_stock_change_product_qty__new_quantity
 msgid ""
 "This quantity is expressed in the Default Unit of Measure of the product."
@@ -6710,7 +6736,7 @@ msgstr "Запустити інше правило"
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.report_stock_rule
 msgid "Trigger Another Rule If No Stock"
-msgstr ""
+msgstr "Запускати інше правило, якщо немає складу"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_barcode_rule__type
@@ -7134,14 +7160,10 @@ msgstr "Зважений товар"
 #: model:ir.model.fields,help:stock.field_stock_location_route__warehouse_selectable
 msgid ""
 "When a warehouse is selected for this route, this route should be seen as "
-"the default route when products pass through this warehouse.  This behaviour"
-" can be overridden by the routes on the Product/Product Categories or by the"
-" Preferred Routes on the Procurement"
+"the default route when products pass through this warehouse."
 msgstr ""
-"Коли для цього маршруту обрано склад, цей маршрут слід розглядати як маршрут"
-" за замовчуванням, коли товари проходять через цей склад. Ця поведінка може "
-"бути перевизначена маршрутами по товарах/категоріям товарів або за бажаними "
-"маршрутами на закупівлях"
+"Коли склад позначено для цього маршруту, його варто розглядати як маршрут за"
+" замовчуванням, коли товари проходять через склад."
 
 #. module: stock
 #: model:ir.model.fields.selection,name:stock.selection__stock_picking__move_type__one
@@ -7152,19 +7174,14 @@ msgstr "Коли усі товари готові"
 #: model:ir.model.fields,help:stock.field_stock_location_route__product_selectable
 msgid ""
 "When checked, the route will be selectable in the Inventory tab of the "
-"Product form.  It will take priority over the Warehouse route. "
+"Product form."
 msgstr ""
-"Якщо позначено цей пункт, маршрут буде вибрано на вкладці Склад у формі "
-"товару. Він буде мати пріоритет над складським маршрутом."
+"Коли буде позначено, маршрут буде обрано у вкладці Склад у формі товару."
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_location_route__product_categ_selectable
-msgid ""
-"When checked, the route will be selectable on the Product Category.  It will"
-" take priority over the Warehouse route. "
-msgstr ""
-"Якщо позначено цей пункт, маршрут буде вибрано для категорії товару. Він "
-"буде мати пріоритет над маршрутом складу."
+msgid "When checked, the route will be selectable on the Product Category."
+msgstr "Коли буде позначено, маршрут буде обиратися у категорії товару."
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_putaway_rule__location_in_id

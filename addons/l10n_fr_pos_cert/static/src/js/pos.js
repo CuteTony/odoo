@@ -64,10 +64,21 @@ models.Order = models.Order.extend({
 
 var orderline_super = models.Orderline.prototype;
 models.Orderline = models.Orderline.extend({
+    isLastLine: function() {
+        var order = this.pos.get_order();
+        var last_id = Object.keys(order.orderlines._byId)[Object.keys(order.orderlines._byId).length-1];
+        var selectedLine = order? order.selected_orderline: null;
+
+        return last_id === selectedLine.cid;
+    },
     set_quantity: function (quantity, keep_price) {
         var current_quantity = this.get_quantity();
         var new_quantity = parseFloat(quantity) || 0;
-        if (this.pos.is_french_country() && (new_quantity === 0 || new_quantity < current_quantity) && !this.reward_id) {
+        if (
+            this.pos.is_french_country() && !this.reward_id &&
+            (new_quantity < current_quantity || new_quantity === 0 && current_quantity === 0 && quantity === "remove") &&
+            !(new_quantity === 0 && current_quantity === 1 && this.isLastLine())
+        ) {
             var quantity_to_decrease = current_quantity - new_quantity;
             this.pos.gui.show_popup("number", {
                 'title': _t("Decrease the quantity by"),
@@ -89,7 +100,9 @@ models.Orderline = models.Orderline.extend({
                             }
                         });
 
-                        if (qty_decrease > current_total_quantity_remaining) {
+                        if(selected_orderline.isLastLine() && current_total_quantity_remaining === 0 && current_total_quantity_remaining < qty_decrease) {
+                            orderline_super.set_quantity.apply(selected_orderline, [-qty_decrease, true]);
+                        } else if (qty_decrease > current_total_quantity_remaining) {
                           this.pos.gui.show_popup("error", {
                               'title': _t("Order error"),
                               'body':  _t("Not allowed to take back more than was ordered."),
@@ -97,7 +110,7 @@ models.Orderline = models.Orderline.extend({
                         } else {
                             var decrease_line = selected_orderline.clone();
                             decrease_line.order = order;
-                            orderline_super.set_quantity.apply(decrease_line, [-qty_decrease]);
+                            orderline_super.set_quantity.apply(decrease_line, [-qty_decrease, true]);
                             order.add_orderline(decrease_line);
                         }
                     }
@@ -158,7 +171,7 @@ screens.ProductScreenWidget.include({
             var orderline = this.pos.get_order().selected_orderline;
             var last_id = Object.keys(order.orderlines._byId)[Object.keys(order.orderlines._byId).length-1];
 
-             if( !orderline || (last_id === orderline.cid && orderline.quantity > 0)){
+             if( !orderline || (last_id === orderline.cid && orderline.quantity >= 0)){
                 this._super(event);
             }
         } else {
@@ -190,7 +203,7 @@ screens.NumpadWidget.include({
             var orderline = this.pos.get_order().selected_orderline;
             var last_id = Object.keys(order.orderlines._byId)[Object.keys(order.orderlines._byId).length-1];
 
-            if(last_id === orderline.cid && orderline.quantity > 0){
+            if(last_id === orderline.cid && orderline.quantity >= 0){
                 this._super(event);
             }
         } else {

@@ -480,7 +480,12 @@ class MassMailing(models.Model):
     def _get_recipients(self):
         if self.mailing_domain:
             domain = safe_eval(self.mailing_domain)
-            res_ids = self.env[self.mailing_model_real].search(domain).ids
+            try:
+                res_ids = self.env[self.mailing_model_real].search(domain).ids
+            except ValueError:
+                res_ids = []
+                _logger.exception('Cannot get the mass mailing recipients, model: %s, domain: %s',
+                                  self.mailing_model_real, domain)
         else:
             res_ids = []
             domain = [('id', 'in', res_ids)]
@@ -505,7 +510,7 @@ class MassMailing(models.Model):
             ('model', '=', self.mailing_model_real),
             ('res_id', 'in', res_ids),
             ('mass_mailing_id', '=', self.id)], ['res_id'])
-        done_res_ids = [record['res_id'] for record in already_mailed]
+        done_res_ids = {record['res_id'] for record in already_mailed}
         return [rid for rid in res_ids if rid not in done_res_ids]
 
     def action_send_mail(self, res_ids=None):
@@ -536,7 +541,7 @@ class MassMailing(models.Model):
                 composer_values['reply_to'] = mailing.reply_to
 
             composer = self.env['mail.compose.message'].with_context(active_ids=res_ids).create(composer_values)
-            extra_context = self._get_mass_mailing_context()
+            extra_context = mailing._get_mass_mailing_context()
             composer = composer.with_context(active_ids=res_ids, **extra_context)
             # auto-commit except in testing mode
             auto_commit = not getattr(threading.currentThread(), 'testing', False)
